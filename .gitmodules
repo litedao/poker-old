@@ -4,3 +4,6 @@
 [submodule "lib/ds-cache"]
 	path = lib/ds-cache
 	url = https://github.com/dapphub/ds-cache
+[submodule "lib/medianizer"]
+	path = lib/medianizer
+	url = https://github.com/makerdao/medianizer
