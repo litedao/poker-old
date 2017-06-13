@@ -1,8 +1,8 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.11;
 
 import "ds-test/test.sol";
 
-import "./Poker.sol";
+import "./poker.sol";
 
 contract PokerTest is DSTest {
     function test_basic_sanity() {
