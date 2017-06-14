@@ -7,3 +7,6 @@
 [submodule "lib/medianizer"]
 	path = lib/medianizer
 	url = https://github.com/makerdao/medianizer
+[submodule "lib/ds-roles"]
+	path = lib/ds-roles
+	url = https://github.com/dapphub/ds-roles
