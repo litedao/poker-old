@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -e
+
+export SOLC_FLAGS=${SOLC_FLAGS:-"--optimize"}
+export ETH_FROM=$(seth rpc eth_coinbase)
+export ETH_GAS=${ETH_GAS:-"4200000"}
+
+dapp build
+
+MEDIANIZER=$(dapp create Medianizer)
+POKER1=$(dapp create Poker)
+POKER2=$(dapp create Poker)
+POKER3=$(dapp create Poker)
+
+price1=$(setzer price cryptocompare)
+wut1=$(seth --to-uint256 $(seth --to-wei "$price1" ETH))
+
+price2=$(setzer price coinbase)
+wut2=$(seth --to-uint256 $(seth --to-wei "$price2" ETH))
+
+price3=$(setzer price coinmarketcap)
+wut3=$(seth --to-uint256 $(seth --to-wei "$price3" ETH))
+
+zzz=$(date -d "+1 hour" +%s)
+
+setzer set "$MEDIANIZER" "$POKER1"
+setzer set "$MEDIANIZER" "$POKER2"
+setzer set "$MEDIANIZER" "$POKER3"
+
+(set -x; setzer poker "$POKER1" "$MEDIANIZER" "$wut1" "$zzz")
+(set -x; setzer poker "$POKER2" "$MEDIANIZER" "$wut2" "$zzz")
+(set -x; setzer poker "$POKER3" "$MEDIANIZER" "$wut3" "$zzz")
+
+setzer read $MEDIANIZER
+
+cat > load-env << EOF
+#!/bin/bash
+
+export MEDIANIZER=$MEDIANIZER
+export POKER1=$POKER1
+export POKER2=$POKER2
+export POKER3=$POKER3
+EOF

@@ -1,17 +1,19 @@
 pragma solidity ^0.4.11;
 
-import 'medianizer/medianizer.sol';
+//import 'medianizer/medianizer.sol';
 import 'ds-cache/cache.sol';
 
-contract Poker is DSAuth {
+contract Poker is DSCache {
 
-    function poke(address val, address med, bytes32 wut) auth {
-        DSValue(val).poke(wut);
-        Medianizer(med).poke();
+    function poke(address med, bytes32 wut) auth {
+        super.poke(wut);
+        assert(med.call(bytes4(sha3("poke()"))));
+        //Medianizer(med).poke();
     }
 
-    function prod(address val, address med, bytes32 wut, uint128 zzz) auth {
-        DSCache(val).prod(wut, zzz);
-        Medianizer(med).poke();
+    function prod(address med, bytes32 wut, uint128 zzz) auth {
+        super.prod(wut, zzz);
+        assert(med.call(bytes4(sha3("poke()"))));
+        //Medianizer(med).poke();
     }
 }
