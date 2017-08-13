@@ -1,7 +1,6 @@
 pragma solidity ^0.4.11;
 
 import 'ds-test/test.sol';
-import 'ds-roles/roles.sol';
 import 'medianizer/medianizer.sol';
 import 'ds-cache/cache.sol';
 
